@@ -19,33 +19,20 @@
     cd <your-repo-name>
     ```
 
-2.  **Set up a virtual environment (recommended):**
+2.  **Set up a virtual environment (optional if you don't use `uv`):**
 
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows: venv\Scripts\activate
     ```
 
-3.  **Install dependencies using `uv` (or `pip`):**
+3.  **Configure local Gemini API Key:**
+    Rename `.env.template` to `.env` and replace `YOUR_GEMINI_API_KEY_HERE` with your API key.
 
+4.  **Run the Streamlit app locally:**
     ```bash
-    uv pip install -r requirements.txt
-    # Or: pip install -r requirements.txt
-    ```
-
-4.  **Configure local Gemini API Key:**
-    Create a file `.streamlit/secrets.toml` with your API key:
-
-    ```toml
-    # .streamlit/secrets.toml
-    GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"
-    ```
-
-    _Ensure `.streamlit/secrets.toml` is added to your `.gitignore` file to prevent committing secrets._
-
-5.  **Run the Streamlit app locally:**
-    ```bash
-    streamlit run app.py
+    uv run streamlit run app.py
+    # Or: streamlit run app.py
     ```
     The application will be available at `http://localhost:8501`.
 

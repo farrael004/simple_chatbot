@@ -4,7 +4,7 @@ steps:
     args:
       - "build"
       - "-t"
-      - "${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}:${COMMIT_SHA}"
+      - '${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}'
       - "."
     id: "Build Docker Image"
 
@@ -12,7 +12,7 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
-      - "${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}:${COMMIT_SHA}"
+      - '${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}'
     id: "Push Docker Image"
 
   # 3. Deploy to Cloud Run
@@ -22,7 +22,7 @@ steps:
       - "run"
       - "deploy"
       - "${_SERVICE_NAME}"
-      - "--image=${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}:${COMMIT_SHA}"
+      - "--image=${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}'
       - "--region=${_REGION}"
       - "--platform=managed"
       - "--allow-unauthenticated" # Or configure IAM for authentication
@@ -31,7 +31,7 @@ steps:
     id: "Deploy to Cloud Run"
 
 images:
-  - "${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}:${COMMIT_SHA}"
+  - '${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}'
 
 substitutions:
   _SERVICE_NAME: "gemini-chatbot-repo"

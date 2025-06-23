@@ -28,8 +28,6 @@ steps:
       - "--allow-unauthenticated" # Or configure IAM for authentication
       - "--port=8501" # The port your container exposes
       - "--set-secrets=GEMINI_API_KEY=gemini-api-key-secret:latest"
-      - "--command=uv"
-      - "--args=run,streamlit,run,app.py,--server.port,${PORT},--server.enableCORS,false,--server.enableXsrfProtection,false,--server.headless,true"
     id: "Deploy to Cloud Run"
 
 images:

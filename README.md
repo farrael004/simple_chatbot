@@ -84,6 +84,7 @@
     - In the Cloud Console, search for and enable the following APIs:
       - **Cloud Build API**
       - **Cloud Run API**
+      - **Cloud Run Admin API**
       - **Artifact Registry API** (This is where your Docker images will be stored. It's preferred over the older Container Registry).
       - **Secret Manager API**
       - **IAM API** (Identity and Access Management - usually enabled by default)

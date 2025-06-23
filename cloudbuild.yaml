@@ -1,0 +1,43 @@
+steps:
+  # 1. Build the Docker image
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}:${COMMIT_SHA}"
+      - "."
+    id: "Build Docker Image"
+
+  # 2. Push the Docker image to Artifact Registry (recommended) or Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "push"
+      - "${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}:${COMMIT_SHA}"
+    id: "Push Docker Image"
+
+  # 3. Deploy to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "${_SERVICE_NAME}"
+      - "--image=${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}:${COMMIT_SHA}"
+      - "--region=${_REGION}"
+      - "--platform=managed"
+      - "--allow-unauthenticated" # Or configure IAM for authentication
+      - "--port=8501" # The port your container exposes
+      - "--set-secrets=GEMINI_API_KEY=gemini-api-key-secret:latest"
+      - "--command=uv"
+      - "--args=run,streamlit,run,app.py,--server.port,${PORT},--server.enableCORS,false,--server.enableXsrfProtection,false,--server.headless,true"
+    id: "Deploy to Cloud Run"
+
+images:
+  - "${_GCR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}:${COMMIT_SHA}"
+
+substitutions:
+  _SERVICE_NAME: "gemini-chatbot-streamlit"
+  _REGION: "us-central1"
+  _GCR_HOSTNAME: "us-central1-docker.pkg.dev" # Or 'gcr.io' for Container Registry
+
+timeout: "1200s"

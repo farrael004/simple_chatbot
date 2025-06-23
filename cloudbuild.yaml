@@ -41,3 +41,8 @@ substitutions:
   _GCR_HOSTNAME: "northamerica-northeast2-docker.pkg.dev" # Or 'gcr.io' for Container Registry
 
 timeout: "1200s"
+
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
+  # You can also specify logging mode explicitly if needed, but REGIONAL_USER_OWNED_BUCKET often suffices
+  # logging: CLOUD_LOGGING_ONLY # Example: If you only want logs in Cloud Logging

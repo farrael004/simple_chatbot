@@ -105,12 +105,12 @@
     - **Format:** Docker.
     - **Mode:** Standard.
     - **Location Type:** Region.
-    - **Region:** Select the _same region_ you plan to deploy your Cloud Run service to (e.g., `northamerica-northeast2`). This is important for performance and potential cost savings.
+    - **Region:** Select the _same region_ you plan to deploy your Cloud Run service to (e.g., `us-central1`). This is important for performance and potential cost savings.
     - Click **"Create"**.
     - **Note the path:** After creation, the path will look like `REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO_NAME`.
-      - For example: `northamerica-northeast2-docker.pkg.dev/my-gcp-project-id/gemini-chatbot-repo`
-      - The `_GCR_HOSTNAME` in your `cloudbuild.yaml` should be the first part: `northamerica-northeast2-docker.pkg.dev`.
-      - The image name in `cloudbuild.yaml` will effectively become: `northamerica-northeast2-docker.pkg.dev/YOUR_PROJECT_ID/gemini-chatbot-repo:${COMMIT_SHA}` if your `_SERVICE_NAME` is `gemini-chatbot-repo` and your repository _is part of the image path implicitly defined by Artifact Registry_.
+      - For example: `us-central1-docker.pkg.dev/my-gcp-project-id/gemini-chatbot-repo`
+      - The `_GCR_HOSTNAME` in your `cloudbuild.yaml` should be the first part: `us-central1-docker.pkg.dev`.
+      - The image name in `cloudbuild.yaml` will effectively become: `us-central1-docker.pkg.dev/YOUR_PROJECT_ID/gemini-chatbot-repo:${COMMIT_SHA}` if your `_SERVICE_NAME` is `gemini-chatbot-repo` and your repository _is part of the image path implicitly defined by Artifact Registry_.
 
 5.  **Configure IAM Permissions for the Cloud Build Service Account:**
     The Cloud Build service account needs permissions to perform actions on your behalf.
@@ -150,8 +150,8 @@
     - **Advanced > Substitution variables:** This is important to match your `cloudbuild.yaml`.
       - Click **"+ ADD VARIABLE"** for each:
         - Variable: `_SERVICE_NAME` Value: `gemini-chatbot-repo` (or whatever you used in `cloudbuild.yaml` and for your Artifact Registry repo name)
-        - Variable: `_REGION` Value: `northamerica-northeast2` (or your chosen region, ensure it matches Artifact Registry region and `cloudbuild.yaml`)
-        - Variable: `_GCR_HOSTNAME` Value: `northamerica-northeast2-docker.pkg.dev` (Adjust region if your Artifact Registry is elsewhere. This is the host for Artifact Registry, not `gcr.io` unless you're using the older Container Registry).
+        - Variable: `_REGION` Value: `us-central1` (or your chosen region, ensure it matches Artifact Registry region and `cloudbuild.yaml`)
+        - Variable: `_GCR_HOSTNAME` Value: `us-central1-docker.pkg.dev` (Adjust region if your Artifact Registry is elsewhere. This is the host for Artifact Registry, not `gcr.io` unless you're using the older Container Registry).
     - Click **"Create"**.
 
 ### Phase 4: First Deployment (Triggered by a Push)

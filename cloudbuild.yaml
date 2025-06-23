@@ -28,6 +28,7 @@ steps:
       - "--allow-unauthenticated" # Or configure IAM for authentication
       - "--port=8501" # The port your container exposes
       - "--set-secrets=GEMINI_API_KEY=gemini-api-key-secret:latest"
+      - "--memory=1Gi"
     id: "Deploy to Cloud Run"
 
 images:
@@ -35,8 +36,8 @@ images:
 
 substitutions:
   _SERVICE_NAME: "gemini-chatbot-repo"
-  _REGION: "northamerica-northeast2"
-  _GCR_HOSTNAME: "northamerica-northeast2-docker.pkg.dev" # Or 'gcr.io' for Container Registry
+  _REGION: "us-central1"
+  _GCR_HOSTNAME: "us-central1-docker.pkg.dev" # Or 'gcr.io' for Container Registry
 
 timeout: "1200s"
 

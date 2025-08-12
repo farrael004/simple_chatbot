@@ -6,9 +6,7 @@ import hashlib
 
 # Lightweight embeddings via sentence-transformers (small model). Falls back to a tiny TF-IDF style embed if unavailable.
 try:
-    from fast_sentence_transformers import (
-        FastSentenceTransformer as SentenceTransformer,
-    )
+    from sentence_transformers import SentenceTransformer
 
     _SENTENCE_TRANSFORMERS_AVAILABLE = True
 except Exception:
@@ -80,7 +78,7 @@ def _get_embedder():
 
     if _SENTENCE_TRANSFORMERS_AVAILABLE:
         # Small, fast, widely available model
-        model_name = "all-MiniLM-L6-v2"
+        model_name = "sentence-transformers/all-MiniLM-L6-v2"
         model = SentenceTransformer(model_name)
 
         def _embed(texts: List[str]) -> List[List[float]]:

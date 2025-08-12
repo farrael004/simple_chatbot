@@ -6,11 +6,11 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "ddgs>=9.5.2",
-    "fast-sentence-transformers>=0.5",
     "openai>=1.99.1",
     "pypdf>=5.9.0",
     "python-docx>=1.2.0",
     "python-dotenv>=1.1.1",
+    "sentence-transformers>=5.1.0",
     "streamlit>=1.47.1",
     "tiktoken>=0.10.0",
 ]

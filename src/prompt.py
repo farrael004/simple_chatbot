@@ -1,4 +1,3 @@
-import streamlit as st
 from typing import List, Dict
 import tiktoken
 from openai.types.chat import ChatCompletion
@@ -53,10 +52,9 @@ def build_search_context(search_query_override, chat_history: List[dict], model)
     search_block = ""
     if not query:
         return search_block
-    with st.spinner("Searching the web..."):
-        search_results = duckduckgo_search(query, n=SEARCH_RESULTS)
-        if search_results:
-            search_block = "Web Search Results:\n" + render_search_block(search_results)
+    search_results = duckduckgo_search(query, n=SEARCH_RESULTS)
+    if search_results:
+        search_block = "Web Search Results:\n" + render_search_block(search_results)
     return search_block
 
 

@@ -22,7 +22,7 @@ if "model" not in st.session_state:
     st.session_state.model = model_names[0]
 
 st.title("RAG Chatbot")
-st.caption("Use the settings on the left to enable RAG functionality.")
+caption = st.container()
 
 with st.sidebar:
     st.header("Settings")
@@ -71,6 +71,18 @@ with st.sidebar:
         st.session_state.history = []
         st.info("Chat history cleared.")
 
+with caption:
+    if do_search and st.session_state.uploaded_texts:
+        st.caption("✔️RAG enabled. ✔️Web search enabled. ✔️Document search enabled.")
+    elif st.session_state.uploaded_texts:
+        st.caption("✔️RAG enabled. ❌Web search disabled. ✔️Document search enabled.")
+    elif do_search:
+        st.caption("✔️RAG enabled. ✔️Web search enabled. ❌Document search disabled.")
+    else:
+        st.caption(
+            "❌RAG disabled. Use the settings on the left panel to enable RAG functionality."
+        )
+
 # Chat UI
 for msg in st.session_state.history:
     if msg["role"] == "user":
@@ -93,9 +105,10 @@ if user_input:
     search_block = ""
     search_results = []
     if do_search:
-        search_block = build_search_context(
-            search_query_override, st.session_state.history, model
-        )
+        with st.spinner("Searching..."):
+            search_block = build_search_context(
+                search_query_override, st.session_state.history, model
+            )
 
     # Build messages
 

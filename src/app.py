@@ -160,7 +160,7 @@ if user_input:
     st.session_state.history.append({"role": "assistant", "content": stream_text})
 
 # Footer
-st.markdown("---")
-st.caption(
-    "This app uses OpenRouter for LLM responses and DuckDuckGo for search. Upload files to enrich context. Please do not upload sensitive data."
-)
+# st.markdown("---")
+# st.caption(
+#     "This app uses OpenRouter for LLM responses and DuckDuckGo for search. Upload files to enrich context. Please do not upload sensitive data."
+# )

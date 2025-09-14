@@ -24,3 +24,7 @@ else:
     st.error("Failed to fetch models from OpenRouter")
     st.stop()
     models = []
+
+if "OpenAI: gpt-oss-120b" in model_names:
+    model_names.remove("OpenAI: gpt-oss-120b")
+    model_names.insert(0, "OpenAI: gpt-oss-120b")

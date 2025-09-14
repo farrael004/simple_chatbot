@@ -117,9 +117,7 @@ if user_input:
     # Strategy: prepend a short assistant-readable context chunk before latest user message
     latest_user = user_input
     if context_prefix:
-        augmented_user = (
-            f"Context for this turn:\n{context_prefix}\n\nUser message:\n{latest_user}"
-        )
+        augmented_user = f"Question:\n{latest_user}\n\n---\n\nContext:\nYour answer is only allowed to reference information in this context:\n{context_prefix}\n\n---\n\nThe user cannot see the context. Cite and copy the exact link to the relevant documents in the context so the user can verify the answer."
     else:
         augmented_user = latest_user
 

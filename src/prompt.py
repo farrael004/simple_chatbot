@@ -1,5 +1,5 @@
 import streamlit as st
-from typing import List, Dict, Tuple
+from typing import List, Dict
 import tiktoken
 from openai.types.chat import ChatCompletion
 import json
@@ -12,12 +12,11 @@ from llm import call_llm
 def build_system_prompt(
     web_search_is_enabled: bool, document_context_is_enabled: bool
 ) -> str:
-    prompt = "You are Chatty, a friendly and helpful assistant. If there is insufficient information to answer the user's question, state so and suggest uploading files or enabling web search. Never produce links that are not for the homepage of a well-known source, but feel free to write links present in the context of this conversation. Always direct your answer to the user."
+    prompt = "You are Chatty, a friendly and helpful assistant. If the context does not contain enough information to answer the user's question, state so and suggest uploading files or enabling web search instead of making up an answer. Never produce links that are not for the homepage of a well-known source, but feel free to write links present in the context of this conversation. Always direct your answer to the user. Always answer in Markdown format. Always cite and copy the exact same link to sources in clickable markdown links: [text here](https://example.com). If a source given in the context is useful to answer the user's question, always cite and link to it. Do not include links that are not in the context."
     if document_context_is_enabled:
         prompt += " Use uploaded document context when relevant."
     if web_search_is_enabled:
         prompt += " Use web search when relevant."
-        prompt += " Always cite sources in clickable markdown links: [source](https://example.com)."
     return prompt
 
 

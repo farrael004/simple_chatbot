@@ -182,3 +182,4 @@ cython_debug/
 
 
 secrets.toml
+test.ipynb

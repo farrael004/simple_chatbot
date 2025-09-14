@@ -24,7 +24,7 @@ def get_openrouter_client() -> OpenAI:
 def call_llm(
     messages: List[Dict[str, str]],
     model: str,
-    temperature: float = 0.3,
+    temperature: float = 0,
     stream: bool = True,
 ) -> ChatCompletion | Stream[ChatCompletionChunk]:
     client = get_openrouter_client()
